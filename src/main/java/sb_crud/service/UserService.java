@@ -1,7 +1,7 @@
 package sb_crud.service;
 
-import static sb_crud.transformer.Transformer.toEntity;
-import static sb_crud.transformer.Transformer.toObject;
+import static sb_crud.transformer.Transformer.TO_USER_DTO;
+import static sb_crud.transformer.Transformer.TO_USER_ENTITY;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,15 +17,15 @@ public class UserService {
 	private UserRepository repository;
 
 	public void post(UserDto user) {
-		repository.save(toEntity(user));
+		repository.save(TO_USER_ENTITY(user));
 	}
 
 	public UserDto get(int id) {
-		return toObject(repository.findById(id));
+		return TO_USER_DTO(repository.findById(id).get());
 	}
 	
 	public void put(int id, UserDto user) {
-		User entity = toEntity(user);
+		User entity = TO_USER_ENTITY(user);
 		entity.setId(id);
 		repository.save(entity);
 	}
